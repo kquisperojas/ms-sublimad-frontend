@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sublimad - Administración</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased font-sans min-h-screen">
+
+  <div id="login-view" class="relative min-h-screen overflow-x-hidden bg-brand-900">
+    <img
+      src="https://images.unsplash.com/photo-1693031630369-bd429a57f115?w=1800&auto=format&fit=crop&q=80"
+      alt=""
+      class="absolute inset-0 h-full w-full object-cover object-center">
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-900/50 via-brand-900/80 to-brand-900 lg:bg-gradient-to-r lg:from-brand-900 lg:via-brand-900/80 lg:to-brand-900/35"></div>
+    <div class="absolute -left-24 top-16 h-64 w-64 rounded-full bg-brand-500/30 blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-teal-300/20 blur-3xl"></div>
+
+    <div class="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-center gap-6 px-4 py-8 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:py-12">
+      <section class="max-w-xl text-white">
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-100">
+          <i class="fa-solid fa-print"></i> Taller
+        </span>
+        <h1 class="mt-4 text-3xl font-black leading-[1.05] sm:text-5xl">Entra al taller y actualiza el catálogo.</h1>
+        <p class="mt-4 max-w-md text-sm leading-relaxed text-white/80 sm:text-base">Prendas, tintas y equipos. Lo que guardes aquí se ve en la tienda de este navegador.</p>
+        <ul class="mt-6 flex flex-wrap gap-2 text-xs font-semibold">
+          <li class="rounded-full bg-white/10 px-3 py-1.5 ring-1 ring-white/15">Prendas</li>
+          <li class="rounded-full bg-white/10 px-3 py-1.5 ring-1 ring-white/15">Tintas</li>
+          <li class="rounded-full bg-white/10 px-3 py-1.5 ring-1 ring-white/15">Impresoras</li>
+        </ul>
+      </section>
+
+      <form id="login-form" class="w-full max-w-md rounded-3xl border border-white/70 bg-white/95 p-7 shadow-2xl shadow-black/30 backdrop-blur sm:p-8">
+        <div class="mb-6 flex items-center gap-3">
+          <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-600 text-white shadow-md shadow-brand-600/30">
+            <i class="fa-solid fa-print text-lg"></i>
+          </span>
+          <span class="text-xl font-extrabold tracking-tight text-gray-900">Sublimad<span class="text-brand-600"> Admin</span></span>
+        </div>
+        <h2 class="text-2xl font-black text-gray-900">Ingresar</h2>
+        <p class="mb-6 mt-1 text-sm text-gray-500">Acceso personal del taller.</p>
+
+        <label for="login-user" class="mb-1.5 block text-sm font-semibold text-gray-700">Usuario</label>
+        <div class="relative mb-4">
+          <i class="fa-solid fa-user pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-brand-600"></i>
+          <input id="login-user" name="user" autocomplete="username" required class="w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-10 pr-3 focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+        </div>
+
+        <label for="login-password" class="mb-1.5 block text-sm font-semibold text-gray-700">Contraseña</label>
+        <div class="relative">
+          <i class="fa-solid fa-lock pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-brand-600"></i>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" required class="w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-10 pr-3 focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+        </div>
+
+        <p id="login-error" class="mt-3 hidden text-sm text-red-600">Usuario o contraseña incorrectos.</p>
+        <button type="submit" class="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-3.5 font-bold text-white shadow-lg shadow-brand-600/30 transition hover:bg-brand-500">
+          Entrar al taller <i class="fa-solid fa-arrow-right text-sm"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div id="panel-view" class="hidden">
+    <header class="sticky top-0 z-40 bg-brand-700 shadow-md">
+      <div class="px-5 h-16 flex items-center justify-between gap-4">
+        <a href="index.html" class="flex items-center gap-2 shrink-0">
+          <i class="fa-solid fa-print text-3xl text-white"></i>
+          <span class="text-2xl font-extrabold tracking-tight text-white">Sublimad<span class="text-teal-200"> Perú</span></span>
+        </a>
+        <div class="flex items-center gap-4">
+          <a href="index.html" class="text-sm font-semibold text-white/90 transition hover:text-white">Ver tienda</a>
+          <button id="logout-btn" type="button" class="text-sm font-semibold text-white/90 transition hover:text-white">Cerrar sesión</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="admin-layout">
+      <aside class="admin-sidebar">
+        <nav class="admin-sidebar-card" aria-label="Administración">
+          <div class="border-b border-gray-100">
+            <button id="menu-productos" type="button" class="menu-btn flex w-full items-center justify-between px-4 py-3 text-left text-sm font-bold text-gray-900 transition" aria-expanded="false">
+              Productos <i class="fa-solid fa-chevron-down text-[10px] text-brand-600 transition-transform"></i>
+            </button>
+            <div id="submenu-productos" class="hidden px-2 pb-2">
+              <button type="button" data-section="tintas" data-source="catalog" class="section-link block w-full rounded-lg px-3 py-1.5 text-left text-xs font-semibold text-gray-600">Tintas</button>
+              <button type="button" data-section="impresoras" data-source="catalog" class="section-link block w-full rounded-lg px-3 py-1.5 text-left text-xs font-semibold text-gray-600">Impresoras</button>
+            </div>
+          </div>
+          <div class="border-b border-gray-100">
+            <button id="menu-catalogo" type="button" class="menu-btn flex w-full items-center justify-between px-4 py-3 text-left text-sm font-bold text-gray-900 transition" aria-expanded="false">
+              Catálogo <i class="fa-solid fa-chevron-down text-[10px] text-brand-600 transition-transform"></i>
+            </button>
+            <div id="submenu-catalogo" class="hidden px-2 pb-2">
+              <button type="button" data-section="polos" data-source="catalog" class="section-link block w-full rounded-lg px-3 py-1.5 text-left text-xs font-semibold text-gray-600">Polos</button>
+              <button type="button" data-section="tazas" data-source="catalog" class="section-link block w-full rounded-lg px-3 py-1.5 text-left text-xs font-semibold text-gray-600">Tazas</button>
+              <button type="button" data-section="gorros" data-source="catalog" class="section-link block w-full rounded-lg px-3 py-1.5 text-left text-xs font-semibold text-gray-600">Gorros</button>
+              <button type="button" data-section="banner" data-source="catalog" class="section-link block w-full rounded-lg px-3 py-1.5 text-left text-xs font-semibold text-gray-600">Banner</button>
+            </div>
+          </div>
+          <div>
+            <button id="menu-almacen" type="button" class="menu-btn flex w-full items-center justify-between px-4 py-3 text-left text-sm font-bold text-gray-900 transition" aria-expanded="false">
+              Almacén <i class="fa-solid fa-chevron-down text-[10px] text-brand-600 transition-transform"></i>
+            </button>
+            <div id="submenu-almacen" class="hidden px-2 pb-2">
+              <button type="button" data-section="tintas" data-source="warehouse" class="section-link block w-full rounded-lg px-3 py-1.5 text-left text-xs font-semibold text-gray-600">Tintas</button>
+              <button type="button" data-section="impresoras" data-source="warehouse" class="section-link block w-full rounded-lg px-3 py-1.5 text-left text-xs font-semibold text-gray-600">Impresoras</button>
+              <button type="button" data-section="polos" data-source="warehouse" class="section-link block w-full rounded-lg px-3 py-1.5 text-left text-xs font-semibold text-gray-600">Polos</button>
+              <button type="button" data-section="tazas" data-source="warehouse" class="section-link block w-full rounded-lg px-3 py-1.5 text-left text-xs font-semibold text-gray-600">Tazas</button>
+              <button type="button" data-section="gorros" data-source="warehouse" class="section-link block w-full rounded-lg px-3 py-1.5 text-left text-xs font-semibold text-gray-600">Gorros</button>
+              <button type="button" data-section="banner" data-source="warehouse" class="section-link block w-full rounded-lg px-3 py-1.5 text-left text-xs font-semibold text-gray-600">Banner</button>
+            </div>
+          </div>
+        </nav>
+      </aside>
+
+      <main class="admin-main">
+        <div class="mb-3 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h2 id="table-title" class="text-lg font-extrabold text-gray-900">Elige una opción del menú</h2>
+            <p id="table-note" class="mt-0.5 text-xs text-gray-500">Los cambios se guardan en este navegador y se ven en la tienda.</p>
+          </div>
+          <button id="add-entry-btn" type="button" class="hidden rounded-lg bg-brand-600 px-3 py-2 text-xs font-bold text-white hover:bg-brand-500">
+            <i class="fa-solid fa-plus mr-1.5"></i>Nueva entrada
+          </button>
+        </div>
+        <label id="table-search-wrap" class="relative mb-3 hidden">
+          <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i>
+          <input id="table-search" type="search" placeholder="Buscar por nombre, proveedor, descripción o RUC" class="w-full rounded-xl border border-gray-200 bg-white py-2 pl-9 pr-3 text-xs text-gray-800 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500">
+        </label>
+        <div id="product-table" class="overflow-x-auto rounded-2xl border border-gray-100 bg-white shadow-sm"></div>
+      </main>
+    </div>
+
+    <div id="edit-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+      <form id="edit-form" class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl">
+        <div class="mb-4 flex items-center justify-between">
+          <h3 class="text-xl font-extrabold text-gray-900">Modificar producto</h3>
+          <button id="edit-close" type="button" class="text-2xl text-gray-500 hover:text-gray-800" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <input type="hidden" id="edit-id">
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label for="edit-item" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Item</label>
+            <input id="edit-item" readonly class="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-gray-500">
+          </div>
+          <div id="edit-stock-wrap">
+            <label for="edit-stock" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Stock</label>
+            <input id="edit-stock" type="number" min="0" step="1" required class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+          </div>
+          <div class="sm:col-span-2">
+            <label for="edit-name" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Nombre</label>
+            <input id="edit-name" required class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+          </div>
+          <div class="sm:col-span-2">
+            <label for="edit-description" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Descripción</label>
+            <textarea id="edit-description" rows="3" required class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+          </div>
+          <div id="edit-purchase-wrap">
+            <label for="edit-purchase" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Precio compra (S/)</label>
+            <input id="edit-purchase" type="number" min="0" step="0.01" required class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+          </div>
+          <div id="edit-sale-wrap">
+            <label for="edit-sale" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Precio venta (S/)</label>
+            <input id="edit-sale" type="number" min="0.01" step="0.01" required class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+          </div>
+          <div id="edit-discount-wrap">
+            <label for="edit-discount" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Descuento (%)</label>
+            <input id="edit-discount" type="number" min="0" max="100" step="1" required class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+          </div>
+          <div id="edit-img-wrap">
+            <label for="edit-img" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Imagen (URL)</label>
+            <input id="edit-img" type="url" required class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+          </div>
+          <div id="edit-icon-wrap" class="hidden">
+            <span class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Imagen</span>
+            <span class="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-brand-50 text-brand-700">
+              <i class="fa-solid fa-box text-xl"></i>
+            </span>
+          </div>
+          <div id="edit-guide" class="hidden border-t border-gray-100 pt-4 sm:col-span-2">
+            <h4 class="mb-3 text-sm font-extrabold uppercase tracking-wide text-brand-700">Datos de la guía de entrada</h4>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label for="edit-entry-date" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Fecha de ingreso</label>
+                <input id="edit-entry-date" type="date" class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+              <div>
+                <label for="edit-guide-number" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">N° de guía</label>
+                <input id="edit-guide-number" class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+              <div>
+                <label for="edit-supplier" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Proveedor</label>
+                <input id="edit-supplier" class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+              <div>
+                <label for="edit-ruc" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">RUC</label>
+                <input id="edit-ruc" inputmode="numeric" maxlength="11" class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+              <div>
+                <label for="edit-document-type" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Tipo de documento</label>
+                <select id="edit-document-type" class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                  <option>Factura</option>
+                  <option>Boleta</option>
+                  <option>Guía de remisión</option>
+                  <option>Nota de ingreso</option>
+                </select>
+              </div>
+              <div>
+                <label for="edit-document-number" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">N° de documento</label>
+                <input id="edit-document-number" placeholder="F001-000123" class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+              <div>
+                <label for="edit-quantity" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Cantidad ingresada</label>
+                <input id="edit-quantity" type="number" min="1" step="1" class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+              <div>
+                <label for="edit-unit" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Unidad</label>
+                <select id="edit-unit" class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                  <option>UND</option>
+                  <option>ML</option>
+                  <option>LT</option>
+                  <option>M</option>
+                  <option>CJ</option>
+                  <option>KG</option>
+                </select>
+              </div>
+              <div>
+                <label for="edit-lot" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Lote</label>
+                <input id="edit-lot" class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+              <div>
+                <label for="edit-warehouse" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Almacén destino</label>
+                <select id="edit-warehouse" class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                  <option>Almacén principal</option>
+                  <option>Taller de sublimación</option>
+                </select>
+              </div>
+              <div>
+                <label for="edit-received-by" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Recibido por</label>
+                <input id="edit-received-by" class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+              <div>
+                <label for="edit-status" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Estado</label>
+                <select id="edit-status" class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                  <option>Pendiente</option>
+                  <option>Recepcionado</option>
+                </select>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="edit-notes" class="mb-1.5 block text-xs font-bold uppercase text-gray-500">Observación</label>
+                <textarea id="edit-notes" rows="2" class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p id="edit-error" class="mt-3 hidden text-sm text-red-600"></p>
+        <div class="mt-5 flex justify-end gap-3">
+          <button id="edit-cancel" type="button" class="rounded-xl border border-gray-300 px-5 py-2.5 font-bold text-gray-700">Cancelar</button>
+          <button id="edit-submit" type="submit" class="rounded-xl bg-brand-600 px-5 py-2.5 font-bold text-white hover:bg-brand-500">Actualizar</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="delete-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+      <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+        <h3 id="delete-title" class="text-xl font-extrabold text-gray-900">Eliminar producto</h3>
+        <p id="delete-message" class="mt-3 text-gray-600">¿Seguro que quieres eliminar el producto?</p>
+        <div class="mt-6 flex justify-end gap-3">
+          <button id="delete-cancel" type="button" class="rounded-xl border border-gray-300 px-5 py-2.5 font-bold text-gray-700">Cancelar</button>
+          <button id="delete-confirm" type="button" class="rounded-xl bg-red-600 px-5 py-2.5 font-bold text-white hover:bg-red-500">Confirmar</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="success-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+      <div class="w-full max-w-md rounded-2xl bg-white p-6 text-center shadow-2xl">
+        <i class="fa-solid fa-circle-check text-4xl text-brand-600"></i>
+        <p id="success-message" class="mt-4 text-lg font-bold text-gray-900">Producto ha sido actualizado correctamente.</p>
+        <button id="success-close" type="button" class="mt-6 rounded-xl bg-brand-600 px-5 py-2.5 font-bold text-white hover:bg-brand-500">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/products.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
